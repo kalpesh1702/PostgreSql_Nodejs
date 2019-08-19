@@ -1,0 +1,66 @@
+DROP SCHEMA IF EXISTS marsplay_assignment CASCADE;
+DROP TYPE IF EXISTS ADDRESS_INFO;
+DROP TYPE IF EXISTS COMPANY_INFO;
+
+CREATE TYPE ADDRESS_INFO AS (
+	street TEXT,
+	suite TEXT,
+	city TEXT,
+	zipcode TEXT,
+	geo POINT
+);
+
+CREATE TYPE COMPANY_INFO AS (
+	name TEXT,
+	catchPhrase TEXT,
+	bs TEXT
+);
+
+CREATE SCHEMA marsplay_assignment
+
+	CREATE TABLE users (
+		id SERIAL PRIMARY KEY,
+		name TEXT NOT NULL,
+		username TEXT NOT NULL,
+		email TEXT NOT NULL,
+		phone TEXT NOT NULL,
+		website TEXT NOT NULL,
+		address ADDRESS_INFO NOT NULL,
+		company COMPANY_INFO NOT NULL
+	)
+
+	CREATE TABLE posts (
+		id SERIAL PRIMARY KEY,
+		userId INTEGER REFERENCES users(id),
+		title TEXT NOT NULL,
+		body TEXT NOT NULL
+	)
+
+	CREATE TABLE comments (
+		id SERIAL PRIMARY KEY,
+		postId INTEGER REFERENCES posts(id),
+		name TEXT NOT NULL,
+		email TEXT NOT NULL,
+		body TEXT NOT NULL
+	)
+
+	CREATE TABLE albums (
+		id SERIAL PRIMARY KEY,
+		userId INTEGER REFERENCES users(id),
+		title TEXT NOT NULL
+	)
+
+	CREATE TABLE photos (
+		id SERIAL PRIMARY KEY,
+		albumId INTEGER REFERENCES albums(id),
+		title TEXT NOT NULL,
+		url TEXT NOT NULL,
+		thumbnailUrl TEXT NOT NULL
+	)
+
+	CREATE TABLE todos (
+		id SERIAL PRIMARY KEY,
+		userId INTEGER REFERENCES users(id),
+		title TEXT NOT NULL,
+		completed BOOLEAN NOT NULL
+	)
