@@ -1,5 +1,3 @@
-# Marsplay Assignment
-Solution for [Marsplay](https://marsplayapp.com)'s full-stack developer assignment (round 1)
 
 ### Problem statement
  - [Formatted copy](PROBLEM-STATEMENT.md)
